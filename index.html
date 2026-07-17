@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offre Essentiel - Acciline+</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://ayming-france.github.io/assets/engine/slides.css">
+  <style>
+  /* Offre Essentiel, bespoke pieces, brand tokens from DESIGN.md */
+  .es-fullgfx{width:100%;max-width:1200px;margin:20px auto 0}
+  .es-fullgfx img{width:100%;height:auto;display:block}
+  .es-intro-lead{font-size:16px;line-height:1.6;color:#6b7280;max-width:1000px;margin:2px auto 0;text-align:center}
+  /* composites shown full (not cropped) */
+  .slide[data-chapter="limites"] .card-image{background:transparent;height:auto;overflow:visible;border-radius:0;box-shadow:none}
+  .slide[data-chapter="limites"] .card-image img{width:100%;height:auto;object-fit:contain;border-radius:14px}
+  .slide[data-chapter="limites"] .card-image{position:relative}
+  .lim-cost{position:absolute;width:58px;height:58px;border-radius:15px;background:#fff;box-shadow:0 6px 16px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center;z-index:3}
+  .lim-cost.a{top:14px;left:14px}
+  .lim-cost.b{bottom:14px;right:14px}
+  .lim-cost span{font-size:30px;font-weight:800;color:#e11d48;line-height:1}
+  .lim-cost svg{width:32px;height:32px}
+  .slide[data-chapter="vision"] .card-image{background:transparent;height:auto;overflow:visible;border-radius:0;box-shadow:none}
+  .slide[data-chapter="vision"] .card-image img{width:100%;height:auto;object-fit:contain;border-radius:14px}
+  /* ---- Excel breaks on the DUERP (slide 4) ---- */
+  .xlwrap{display:flex;gap:34px;align-items:center;justify-content:center;max-width:1160px;margin:26px auto 0}
+  .xl{position:relative;flex:0 0 600px;max-width:600px;border-radius:12px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.16);border:1px solid #d7dde3;text-align:left;background:#fff}
+  .xl-bar{display:flex;align-items:center;gap:7px;background:#107c41;padding:9px 14px}
+  .xl-bar .d{width:11px;height:11px;border-radius:50%}
+  .xl-bar .r{background:#ff5f57}.xl-bar .y{background:#febc2e}.xl-bar .g{background:#28c840}
+  .xl-file{margin-left:8px;color:#fff;font-size:12.5px;font-weight:600}
+  .xl-fbar{display:flex;align-items:center;gap:10px;background:#f3f5f7;border-bottom:1px solid #e0e5ea;padding:7px 12px}
+  .xl-ref{font-size:11.5px;font-weight:700;color:#5b6570;background:#fff;border:1px solid #d7dde3;border-radius:4px;padding:3px 0;width:40px;text-align:center}
+  .xl-fx{font-family:Georgia,serif;font-style:italic;color:#9aa4ad;font-size:13px}
+  .xl-formula{font-family:'Consolas',ui-monospace,monospace;font-size:13px;font-weight:600}
+  .xl-formula .ok{color:#1f2d3a}.xl-formula .err{color:#d13438}
+  .xl-grid{width:100%;border-collapse:collapse;font-size:12px}
+  .xl-grid th,.xl-grid td{border:1px solid #e4e8ec;padding:6px 9px;color:#31404d;white-space:nowrap}
+  .xl-grid thead th{background:#f7f9fa;color:#8a949d;font-weight:700;text-align:center}
+  .xl-grid tbody td{text-align:left}
+  .xl-grid .rownum{background:#f7f9fa;color:#8a949d;font-weight:700;text-align:center;width:24px}
+  .xl-grid td:nth-child(4),.xl-grid td:nth-child(5){text-align:center;font-variant-numeric:tabular-nums}
+  .xl-grid .crit{text-align:center;font-weight:700;font-variant-numeric:tabular-nums;transition:background .25s,color .25s}
+  .xl-grid td.crit.err{color:#d13438;background:#fdecec}
+  .xl-cursor{position:absolute;left:16px;top:120px;width:17px;height:23px;z-index:12;pointer-events:none;transition:left .6s cubic-bezier(.4,.15,.25,1),top .6s cubic-bezier(.4,.15,.25,1),transform .12s;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))}
+  .xl-cursor svg{width:17px;height:23px;fill:#1f2d3a;stroke:#fff;stroke-width:1.3;stroke-linejoin:round}
+  .xl-cursor.click{transform:scale(.8)}
+  .xl-status{position:absolute;left:0;right:0;bottom:0;z-index:6;background:#107c41;color:#fff;font-size:10.5px;font-weight:600;padding:3px 12px;opacity:0;transition:.15s}
+  .xl-status.show{opacity:1}
+  .xl-dialog{position:absolute;left:50%;top:54%;transform:translate(-50%,-50%) scale(.96);z-index:10;width:300px;background:#fff;border:1px solid #cfd6dc;border-radius:9px;box-shadow:0 22px 55px rgba(0,0,0,.32);padding:15px 17px;opacity:0;transition:.2s;pointer-events:none}
+  .xl-dialog.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  .xl-dlg-head{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:800;color:#31404d;margin-bottom:9px}
+  .xl-dlg-head svg{width:20px;height:20px;stroke:#e0a100;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+  .xl-dlg-body{font-size:12px;color:#5b6570;line-height:1.4;margin:0 0 13px}
+  .xl-dlg-btns{display:flex;gap:8px;justify-content:flex-end}
+  .xl-btn{font-family:inherit;font-size:11.5px;font-weight:600;padding:6px 12px;border-radius:5px;border:1px solid #cfd6dc;background:#f5f7f9;color:#31404d}
+  .xl-btn.primary{background:#107c41;border-color:#107c41;color:#fff;transition:box-shadow .12s}
+  .xl-btn.primary.hot{box-shadow:0 0 0 3px rgba(16,124,65,.3)}
+  .xl-save{position:absolute;left:50%;top:54%;transform:translate(-50%,-50%) scale(.96);z-index:11;width:320px;background:#fff;border:1px solid #cfd6dc;border-radius:9px;box-shadow:0 22px 55px rgba(0,0,0,.32);padding:15px 17px;opacity:0;transition:.2s;pointer-events:none}
+  .xl-save.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  .xl-save .xl-dlg-head svg{stroke:#5b6570}
+  .xl-save-list{border:1px solid #e4e8ec;border-radius:6px;background:#fbfcfd;padding:4px;margin-bottom:10px}
+  .xl-save-f{display:flex;align-items:center;gap:7px;font-size:10.5px;color:#5b6570;padding:3px 6px;border-radius:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .xl-save-f::before{content:"";width:10px;height:12px;border-radius:2px;background:#1d8a4e;flex-shrink:0}
+  .xl-save-row{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+  .xl-save-lbl{font-size:11px;font-weight:700;color:#8a949d;flex-shrink:0}
+  .xl-save-name{flex:1;min-width:0;display:flex;align-items:center;font-size:11.5px;color:#31404d;background:#fff;border:1px solid #2b7fff;border-radius:5px;padding:5px 9px;overflow:hidden;white-space:nowrap}
+  .xl-caret{display:inline-block;width:1px;height:13px;background:#31404d;margin-left:1px;animation:xlCaret 1s step-end infinite}
+  @keyframes xlCaret{0%,50%{opacity:1}51%,100%{opacity:0}}
+  .xl-tip{position:absolute;right:14px;top:150px;z-index:9;max-width:210px;background:#2b3742;color:#fff;border-radius:7px;padding:9px 12px;font-size:11.5px;line-height:1.35;box-shadow:0 12px 28px rgba(0,0,0,.3);opacity:0;transform:translateY(5px);transition:.22s;pointer-events:none}
+  .xl-tip.show{opacity:1;transform:none}
+  .xl-tip b{color:#ff9a9a}
+  .xlpain{flex:1;display:flex;flex-direction:column;gap:17px;text-align:left;max-width:360px;padding:0;margin:0}
+  .xlpain li{display:flex;gap:13px;align-items:flex-start;list-style:none}
+  .xlpain .ic{width:38px;height:38px;border-radius:11px;background:#eef2f6;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .xlpain .ic svg{width:20px;height:20px;stroke:#00456d;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .xlpain h4{font-size:15px;font-weight:700;color:#00456d;margin:0 0 2px}
+  .xlpain p{font-size:12.5px;color:#6b7280;line-height:1.45;margin:0}
+  .suite-item{transition:opacity .45s ease}
+  .suite.focus .suite-item{opacity:.25}
+  .suite.focus .suite-item.keep{opacity:1}
+  .slide.active .suite-item{animation:suiteIn .5s cubic-bezier(.2,.7,.3,1) backwards}
+  .slide.active .suite-item:nth-child(1){animation-delay:.04s}.slide.active .suite-item:nth-child(2){animation-delay:.10s}.slide.active .suite-item:nth-child(3){animation-delay:.16s}.slide.active .suite-item:nth-child(4){animation-delay:.22s}.slide.active .suite-item:nth-child(5){animation-delay:.28s}.slide.active .suite-item:nth-child(6){animation-delay:.34s}.slide.active .suite-item:nth-child(7){animation-delay:.40s}.slide.active .suite-item:nth-child(8){animation-delay:.46s}
+  @keyframes suiteIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  /* ---- suite modules grid (rebuilt with real icons) ---- */
+  .suite{display:flex;flex-wrap:wrap;justify-content:center;gap:66px 30px;max-width:1200px;margin:28px auto 0;text-align:left}
+  .suite-item{display:flex;gap:15px;align-items:flex-start;width:calc(33.333% - 22px)}
+  .suite-item img{width:56px;height:56px;flex-shrink:0}
+  .suite-item h4{font-size:15px;font-weight:700;color:#00456d;margin:0 0 4px}
+  .suite-item p{font-size:12.5px;color:#6b7280;line-height:1.45;margin:0}
+  .suite-badge{display:inline-block;background:#11a9e6;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:9999px;margin-left:7px;vertical-align:middle;text-transform:uppercase;letter-spacing:.5px}
+  /* ---- parcours steps (rebuilt with real icons) ---- */
+  .parc{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;max-width:1200px;margin:34px auto 0;align-items:start}
+  .parc-step{text-align:center;position:relative}
+  .parc-num{font-size:36px;font-weight:800;color:#c9d3dd;line-height:1}
+  .parc-ic{height:66px;display:flex;align-items:center;justify-content:center;margin:12px 0 14px}
+  .parc-ic svg{width:46px;height:46px;stroke:#11a9e6;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .parc-step h4{font-size:13px;font-weight:600;color:#334155;margin:0;line-height:1.35}
+  .parc-step:not(:last-child)::after{content:"";position:absolute;top:58px;right:-8px;width:16px;border-top:2px dotted #94a3b8}
+  /* animated plan cards (parcours) */
+  .plan{display:flex;gap:14px;justify-content:center;margin:26px auto 0;max-width:1260px}
+  .plan-card{flex:1;min-width:0;background:#fff;border:1px solid #eef2f6;border-radius:16px;box-shadow:0 6px 20px rgba(0,0,0,.07);padding:14px 14px 16px;text-align:left;opacity:0}
+  .plan-card.mk-in{animation:planIn .55s cubic-bezier(.2,.7,.3,1) both}
+  @keyframes planIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .plan-mock{height:118px;border-radius:12px;background:#f8fafc;border:1px solid #eef2f6;overflow:hidden;position:relative;padding:12px}
+  .plan-num{font-size:12px;font-weight:700;color:#9ca3af;margin-top:13px}
+  .plan-t{font-size:14.5px;font-weight:700;color:#00456d;margin-top:2px;line-height:1.25;min-height:37px}
+  .plan-d{font-size:12px;color:#6b7280;line-height:1.45;margin-top:5px}
+  /* mock bits */
+  .mk-line{height:7px;border-radius:4px;background:#e2e8f0;margin:6px 0;flex-shrink:0}
+  .mk-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;border-radius:9999px;padding:4px 10px}
+  .mk-blue{background:rgba(17,169,230,.12);color:#11a9e6}
+  .mk-green{background:rgba(10,179,140,.14);color:#0a9e78}
+  .mk-send .mk-doc-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}
+  .mk-send .mk-doc-top .mk-doc-h{margin:0}
+  .mk-send .mk-badge{animation:mkPulse 1.8s ease-in-out infinite}
+  @keyframes mkPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+  .mk-check{position:absolute;right:12px;bottom:12px;width:30px;height:30px;border-radius:50%;background:#0ab38c;color:#fff;display:flex;align-items:center;justify-content:center;animation:mkRing 1.8s ease-out infinite}
+  .mk-check svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:3}
+  @keyframes mkRing{0%{box-shadow:0 0 0 0 rgba(10,179,140,.45)}70%,100%{box-shadow:0 0 0 12px rgba(10,179,140,0)}}
+  .mk-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+  .mk-play i{width:40px;height:40px;border-radius:50%;background:#11a9e6;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(17,169,230,.4);animation:mkPulse 1.6s ease-in-out infinite}
+  .mk-play i::before{content:"";border-left:13px solid #fff;border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:4px}
+  .mk-prog{position:absolute;left:12px;right:12px;bottom:12px;height:5px;border-radius:3px;background:#e2e8f0;overflow:hidden}
+  .mk-prog::after{content:"";position:absolute;inset:0;width:40%;background:linear-gradient(90deg,#0fa7e2,#0ab38c);border-radius:3px;animation:mkFill 2.4s ease-in-out infinite}
+  @keyframes mkFill{0%{width:8%}70%{width:88%}100%{width:88%}}
+  .mk-call{display:flex;gap:8px;height:100%}
+  .mk-av{flex:1;border-radius:9px;background:#0f2b40;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;position:relative}
+  .mk-av span{font-size:9px;color:#cbd5e1;font-weight:600}
+  .mk-av::before{content:"";position:absolute;top:14px;width:26px;height:26px;border-radius:50%;background:#5a7d99}
+  .mk-dot{position:absolute;top:8px;right:8px;width:9px;height:9px;border-radius:50%;background:#0ab38c;animation:mkBlink 1.4s ease-in-out infinite}
+  @keyframes mkBlink{0%,100%{opacity:1}50%{opacity:.35}}
+  .mk-task{display:flex;align-items:center;gap:8px;margin:8px 0}
+  .mk-task i{width:16px;height:16px;border-radius:5px;border:2px solid #cbd5e1;flex-shrink:0}
+  .mk-task.done i{background:#0ab38c;border-color:#0ab38c}
+  .mk-task.done{animation:mkTaskIn .5s both}
+  .mk-task.d1{animation-delay:.3s}.mk-task.d2{animation-delay:.9s}.mk-task.d3{animation-delay:1.5s}
+  @keyframes mkTaskIn{from{opacity:.3}to{opacity:1}}
+  .mk-chat{position:absolute;left:12px;bottom:12px;background:#fff;border:1px solid #eef2f6;border-radius:12px;border-bottom-left-radius:3px;padding:9px 12px;display:flex;gap:4px}
+  .mk-chat i{width:6px;height:6px;border-radius:50%;background:#11a9e6;animation:mkType 1.2s ease-in-out infinite}
+  .mk-chat i:nth-child(2){animation-delay:.2s}.mk-chat i:nth-child(3){animation-delay:.4s}
+  @keyframes mkType{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(-4px);opacity:1}}
+  @media (prefers-reduced-motion:reduce){.plan-card,.plan-card.mk-in{opacity:1;animation:none}.mk-send .mk-badge,.mk-check,.mk-play i,.mk-prog::after,.mk-dot,.mk-task,.mk-chat i,.mk-ctrls i.red,.mk-avs .mk-tile,.mk-risk,.mk-mailc .mk-line,.mk-mailh .av,.slide.active .suite-item,.slide.active .vd li,.slide.active .vd-icon,.slide.active .value-detail-visual,.slide[data-chapter="demo"] .webframe{animation:none}}
+  /* concrete mockups */
+  .mk-doc{background:#fff;border:1px solid #eef2f6;border-radius:9px;padding:9px 10px;height:100%}
+  .mk-doc-h{font-size:11px;font-weight:800;color:#00456d;margin-bottom:7px}
+  .mk-opt{display:flex;align-items:center;gap:7px;margin:7px 0}
+  .mk-opt i{width:13px;height:13px;border-radius:4px;border:2px solid #cbd5e1;flex-shrink:0}
+  .mk-opt i.on{background:#11a9e6;border-color:#11a9e6}
+  .mk-opt span{flex:1;height:6px;border-radius:3px;background:#e2e8f0}
+  .mk-sign{margin-top:9px;border-top:1px dashed #cbd5e1;padding-top:6px;font-family:'Brush Script MT',cursive;font-style:italic;color:#0a9e78;font-size:16px;font-weight:600}
+  .mk-callm{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+  .mk-avs{display:flex;gap:8px;width:100%}
+  .mk-tile{flex:1;height:58px;border-radius:9px;background:#132a3f;position:relative;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+  .mk-tile>svg{position:absolute;top:9px;width:30px;height:30px}
+  .mk-tile span{position:relative;font-size:9px;font-weight:700;color:#fff;background:rgba(0,0,0,.5);border-radius:5px;padding:2px 6px;margin-bottom:5px}
+  .mk-avs .mk-tile{animation:mkSpeak 3s ease-in-out infinite}
+  .mk-avs .mk-tile:nth-child(2){animation-delay:1.5s}
+  @keyframes mkSpeak{0%,34%,100%{box-shadow:0 0 0 0 rgba(17,169,230,0)}12%,22%{box-shadow:0 0 0 3px rgba(17,169,230,.6)}}
+  .mk-ctrls{display:flex;gap:7px}
+  .mk-ctrls i{width:23px;height:23px;border-radius:50%;background:#e5e9ee;display:flex;align-items:center;justify-content:center}
+  .mk-ctrls i svg{width:12px;height:12px;stroke:#64748b;fill:none;stroke-width:2}
+  .mk-ctrls i.red{background:#ef4444;animation:mkRingRed 1.7s ease-out infinite}.mk-ctrls i.red svg{stroke:#fff}
+  @keyframes mkRingRed{0%{box-shadow:0 0 0 0 rgba(239,68,68,.5)}70%,100%{box-shadow:0 0 0 9px rgba(239,68,68,0)}}
+  .mk-risk{display:flex;align-items:center;gap:8px;margin:8px 0;animation:mkRiskIn 4.2s ease-in-out infinite}
+  .mk-risk:nth-child(3){animation-delay:.45s}.mk-risk:nth-child(4){animation-delay:.9s}
+  .mk-sev{width:14px;height:14px;border-radius:4px;flex-shrink:0}
+  @keyframes mkRiskIn{0%,4%{opacity:0;transform:translateX(-7px)}14%,88%{opacity:1;transform:none}100%{opacity:0;transform:translateX(-7px)}}
+  .mk-sev.s1{background:#8fd3f4}.mk-sev.s2{background:#11a9e6}.mk-sev.s3{background:#00456d}
+  .mk-cot{margin-left:auto;font-size:11px;font-weight:800;color:#00456d}
+  .mk-mailc{background:#fff;border:1px solid #eef2f6;border-radius:9px;height:100%;padding:7px 10px;display:flex;flex-direction:column;overflow:hidden}
+  .mk-mailh{display:flex;align-items:center;gap:7px;padding-bottom:6px;border-bottom:1px solid #eef2f6;margin-bottom:4px}
+  .mk-mailh .av{width:24px;height:24px;border-radius:50%;background:#0a9e78;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:mkAvRing 2s ease-out infinite}
+  @keyframes mkAvRing{0%{box-shadow:0 0 0 0 rgba(10,158,120,.5)}70%,100%{box-shadow:0 0 0 8px rgba(10,158,120,0)}}
+  .mk-from{display:flex;flex-direction:column;line-height:1.2;min-width:0}
+  .mk-from b{font-size:11px;font-weight:800;color:#00456d}
+  .mk-from span{font-size:9px;color:#94a3b8}
+  .mk-subj{font-size:10.5px;font-weight:800;color:#00456d;line-height:1.15;margin-bottom:5px}
+  .mk-mailc .mk-line{transform-origin:left;animation:mkTypeLine 4.5s ease-in-out infinite}
+  .mk-mailc .mk-line:last-child{animation-delay:.5s}
+  @keyframes mkTypeLine{0%,6%{transform:scaleX(0)}22%,86%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+  /* ---- stats + mouvement 3 columns ---- */
+  .st{background:#f8fafc;border:1px solid #eef2f6;border-radius:16px;padding:20px 30px;text-align:center}
+  .st-n{font-size:44px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;background:linear-gradient(90deg,#0fa7e2,#0ab38c);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .st-l{font-size:14px;color:#6b7280;margin-top:8px}
+  .mv3{display:grid;grid-template-columns:1.15fr .85fr 1.15fr;gap:20px;margin-top:22px;width:100%;max-width:1200px;align-items:stretch}
+  .mv3-card{background:#f8fafc;border:1px solid #eef2f6;border-radius:18px;padding:22px 24px;text-align:left;display:flex;flex-direction:column}
+  .mv3-card h4{font-size:18px;font-weight:700;color:#00456d;margin:0 0 8px}
+  .mv3-card p{font-size:13.5px;color:#6b7280;line-height:1.5;margin:0 0 12px}
+  .mv3-card img{width:86%;height:auto;margin:auto auto 0;display:block}
+  .mv3-stats{display:flex;flex-direction:column;gap:14px;justify-content:space-between}
+  .slide[data-chapter="evaluation"] .value-image-container,.slide[data-chapter="plans-actions"] .value-image-container{background:transparent;box-shadow:none;border:none;padding:0}
+  .slide[data-chapter="evaluation"] .value-image-container img,.slide[data-chapter="plans-actions"] .value-image-container img{border-radius:0;box-shadow:none}
+  .slide[data-chapter="support"] .image-container{background:transparent;box-shadow:none;border:none;padding:0}
+  .slide[data-chapter="support"] .image-container img{border-radius:0;box-shadow:none;transform:scale(1.12);transform-origin:center}
+  /* value-detail heading+paragraph blocks */
+  .value-detail-content h2{font-size:30px;margin-bottom:8px}
+  .vd-head{display:flex;align-items:center;gap:13px;margin-bottom:6px}
+  .vd-head h2{margin:0}
+  .vd-icon{width:46px;height:46px;flex-shrink:0}
+  .slide.active .vd-icon{animation:fadeInUp .5s ease backwards}
+  .slide.active .vd li{animation:fadeInUp .5s ease backwards}
+  .slide.active .vd li:nth-child(1){animation-delay:.14s}.slide.active .vd li:nth-child(2){animation-delay:.24s}.slide.active .vd li:nth-child(3){animation-delay:.34s}.slide.active .vd li:nth-child(4){animation-delay:.44s}.slide.active .vd li:nth-child(5){animation-delay:.54s}
+  .slide.active .value-detail-visual{animation:fadeInUp .6s ease .12s backwards}
+  .vd{list-style:none;padding:0;margin:16px 0 0;text-align:left}
+  .vd li{margin:0 0 22px}
+  .vd li:last-child{margin-bottom:0}
+  .vd h4{font-size:16px;font-weight:700;color:#00456d;margin:0 0 4px}
+  .vd p{font-size:14px;color:#6b7280;line-height:1.55;margin:0}
+  .mv3-logos{max-width:68%;margin:auto auto 0}
+  /* web-interface frame (demo) */
+  .webframe{max-width:640px;margin:20px auto 0;border-radius:12px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.18);border:1px solid #e5e9ee}
+  .slide[data-chapter="demo"] .webframe{animation:webFloat 6s ease-in-out infinite}
+  @keyframes webFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  .webframe-bar{display:flex;align-items:center;gap:7px;background:#f1f3f6;padding:10px 14px;border-bottom:1px solid #e5e9ee}
+  .webframe-bar i{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .webframe-bar .r{background:#ff5f57}.webframe-bar .y{background:#febc2e}.webframe-bar .g{background:#28c840}
+  .webframe-url{flex:1;margin-left:10px;background:#fff;border-radius:6px;padding:5px 12px;font-size:12px;color:#6b7280;text-align:left}
+  .webframe img{width:100%;display:block}
+  .mv3-stats .st{min-width:0}
+  /* ---- testimonials ---- */
+  .tg{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:22px;width:100%;max-width:1080px;text-align:left}
+  .tg-card{background:#fff;border:1px solid #eef2f6;border-radius:16px;box-shadow:0 6px 20px rgba(0,0,0,.06);padding:22px 24px;display:flex;flex-direction:column}
+  .tg-logo{height:22px;width:auto;max-width:150px;object-fit:contain;object-position:left;align-self:flex-start;margin-bottom:14px}
+  .tg-stars{color:#f5b301;font-size:15px;letter-spacing:2px;margin-bottom:11px}
+  .tg-quote{font-size:14px;color:#0f172a;line-height:1.55;margin:0 0 18px;flex:1}
+  .tg-author{margin-top:auto}
+  .tg-name{font-size:14px;font-weight:700;color:#00456d}
+  .tg-role{font-size:12.5px;color:#6b7280;line-height:1.4;margin-top:3px}
+  .tg-sector{font-size:11.5px;color:#9ca3af;line-height:1.4;margin-top:2px}
+  .tg-trust{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:28px}
+  .tg-trust-lbl{font-size:14px;font-weight:700;color:#00456d}
+  .tg-badges{display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap}
+  .tg-badges img{height:26px;width:auto;object-fit:contain;opacity:.85}
+  /* ---- contact ---- */
+  .ct{display:flex;justify-content:center;gap:22px;margin-top:30px;flex-wrap:wrap}
+  .ct-item{display:flex;align-items:center;gap:14px;background:#f8fafc;border:1px solid #eef2f6;border-radius:16px;padding:18px 26px}
+  .ct-ico{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(15,167,226,.12),rgba(10,179,140,.12));display:flex;align-items:center;justify-content:center;color:#11a9e6}
+  .ct-ico svg{width:22px;height:22px}
+  .ct-k{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#9ca3af;text-align:left}
+  .ct-v{font-size:18px;font-weight:700;color:#00456d;text-align:left}
+  /* ---- calculator (ported from the internal deck) ---- */
+  .es-calc{background:#fff;border:1px solid #eef2f6;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.10);padding:24px 26px;margin-top:18px;text-align:left;width:1120px;max-width:100%}
+  .es-calc-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
+  .es-seg{display:inline-flex;background:#f8fafc;border:1px solid #eef2f6;border-radius:11px;padding:4px}
+  .es-seg button{border:0;background:transparent;padding:9px 20px;border-radius:8px;font-family:inherit;font-size:14px;font-weight:700;color:#6b7280;cursor:pointer;transition:.2s}
+  .es-seg button.on{background:#fff;color:#11a9e6;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  .es-hint{font-size:13px;color:#9ca3af}
+  .es-slider-row{display:flex;align-items:center;gap:16px;margin-bottom:8px}
+  .es-slider-row .val{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:#6b7280;text-align:left;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .es-slider-row .val #esN{font-size:48px;font-weight:700;color:#11a9e6;letter-spacing:0;text-transform:none;margin-right:4px}
+  .es-calc input[type=range]{-webkit-appearance:none;appearance:none;flex:1;height:6px;border-radius:9999px;background:#eef2f6;outline:none;cursor:pointer}
+  .es-calc input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid #11a9e6;box-shadow:0 4px 12px rgba(0,0,0,.08);cursor:pointer}
+  .es-calc input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid #11a9e6;box-shadow:0 4px 12px rgba(0,0,0,.08);cursor:pointer}
+  .es-calc-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:26px;margin-top:12px;align-items:stretch}
+  .es-col{display:flex;flex-direction:column;height:100%}
+  .es-calc-grid>div:first-child{order:2}
+  .es-calc-grid>div:last-child{order:1}
+  .es-chartwrap svg{width:100%;height:auto;display:block}
+  .es-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px;font-size:13px;color:#6b7280}
+  .es-legend .k{display:inline-flex;align-items:center;gap:7px;font-weight:600}
+  .es-legend .k i{width:16px;height:3px;border-radius:2px;display:inline-block}
+  .es-eqrow{display:flex;align-items:stretch;gap:9px}
+  .es-eqc{flex:1;min-width:0;background:#f8fafc;border:1px solid #eef2f6;border-radius:14px;padding:18px 16px}
+  .es-eqc .k{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#6b7280}
+  .es-eqc .v{font-size:27px;font-weight:700;color:#00456d;margin-top:9px;line-height:1;font-variant-numeric:tabular-nums}
+  .es-eqc .v small{font-size:12px;font-weight:600;color:#9ca3af}
+  .es-eqc.alt{background:linear-gradient(135deg,rgba(15,167,226,.10),rgba(10,179,140,.10));border-color:rgba(17,169,230,.25)}
+  .es-eqc.alt .v{color:#11a9e6}
+  .es-op{display:flex;align-items:center;font-size:24px;font-weight:700;color:#c4ccd6}
+  .es-annual{margin-top:12px;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+  .es-ro.es-annual .k{margin:0;font-size:15px}
+  .es-ro.es-annual .v{margin-top:14px;font-size:64px}
+  .es-ro.es-annual .v small{font-size:26px}
+  #esN .z{visibility:hidden}
+  .es-ro{background:#f8fafc;border:1px solid #eef2f6;border-radius:13px;padding:15px}
+  .es-ro .k{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:#6b7280}
+  .es-ro .v{font-size:28px;font-weight:700;color:#00456d;font-variant-numeric:tabular-nums;margin-top:6px;line-height:1}
+  .es-ro .v small{font-size:14px;font-weight:600;color:#9ca3af}
+  .es-ro.hero{background:linear-gradient(135deg,rgba(15,167,226,.10),rgba(10,179,140,.10));border-color:rgba(17,169,230,.25)}
+  .es-cnote{font-size:12.5px;color:#9ca3af;margin-top:12px;line-height:1.5}
+  /* ---- pricing slide ---- */
+  .pr{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;max-width:1330px;margin:16px auto 0;align-items:center;text-align:left}
+  .pr-main{background:#f4f6f9;border:1px solid #eaeef2;border-radius:20px;padding:20px 22px}
+  .pr-main-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:13px}
+  .pr-offer{font-size:24px;font-weight:800;color:#11a9e6}
+  .pr-price{font-size:24px;font-weight:800;color:#11a9e6}
+  .pr-price small{font-size:15px;font-weight:700}
+  .pr-modules{background:#fff;border:1px solid #eef2f6;border-radius:14px;padding:15px 18px}
+  .pr-mod-title{font-size:14px;font-weight:700;color:#334155;border-bottom:1px solid #e5e9ee;padding-bottom:9px;margin-bottom:13px}
+  .pr-mod{display:flex;gap:13px;margin-bottom:14px}
+  .pr-mod:last-child{margin-bottom:0}
+  .pr-mod-ic{width:44px;height:44px;flex-shrink:0}
+  .pr-mod-body{flex:1;min-width:0}
+  .pr-mod-body h4{font-size:14px;font-weight:800;color:#00456d;margin:2px 0 9px}
+  .pr-feats{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:6px 18px}
+  .pr-feats li{position:relative;padding-left:19px;font-size:11.5px;color:#475569;line-height:1.3}
+  .pr-feats li::before{content:"✓";position:absolute;left:0;top:0;color:#11a9e6;font-weight:800;font-size:11px}
+  .pr-apps{display:flex;gap:13px;margin-top:15px}
+  .pr-app{flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #eef2f6;border-radius:13px;box-shadow:0 3px 10px rgba(0,0,0,.05);padding:9px 13px}
+  .pr-app-ic{width:34px;height:34px;border-radius:9px;background:#f1f6fb;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .pr-app-ic svg{width:19px;height:19px}
+  .pr-app-ic img{width:22px;height:22px;object-fit:contain}
+  .pr-app-ic.sh{position:relative}
+  .pr-app-ic.sh::after{content:"+";position:absolute;top:0;right:3px;color:#e8562e;font-weight:900;font-size:15px;line-height:1;pointer-events:none}
+  .pr-app span{font-size:11px;color:#94a3b8;line-height:1.15}
+  .pr-app b{display:block;font-size:13.5px;color:#00456d;font-weight:800}
+  .pr-addons-wrap{display:flex;gap:11px;align-items:stretch}
+  .pr-addons-label{writing-mode:vertical-rl;transform:rotate(180deg);font-size:15px;font-weight:800;color:#c4ccd6;letter-spacing:1.5px;align-self:center;flex-shrink:0}
+  .pr-addons{flex:1;display:flex;flex-direction:column;gap:9px}
+  .pr-addon{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;background:#f7f9fb;border:1px solid #eef2f6;border-radius:14px;padding:11px 16px}
+  .pr-addon.compact{padding:10px 16px}
+  .pr-addon-ic{width:42px;height:42px;border-radius:11px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;gap:2px;flex-shrink:0}
+  .pr-addon-ic.two{background:#fff}
+  .pr-addon-ic svg{width:22px;height:22px;stroke:#11a9e6;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .pr-addon-ic img{width:24px;height:24px}
+  .pr-addon-ic.two{width:58px}.pr-addon-ic.two img{width:22px;height:22px}
+  .pr-addon-body h4{font-size:13.5px;font-weight:800;color:#00456d;margin:0}
+  .pr-addon-body p{font-size:11px;color:#6b7280;line-height:1.35;margin:4px 0 0}
+  .pr-addon-price{font-size:16px;font-weight:800;color:#11a9e6;text-align:right;white-space:nowrap;line-height:1.15}
+  .pr-addon-price .pr-unit{display:block;font-size:10.5px;font-weight:600;color:#94a3b8}
+  .pr-free{display:block;color:#0ab38c;font-size:15px}
+  .pr-was{display:block;color:#b0b8c1;font-weight:600;font-size:10.5px;text-decoration:line-through;margin-top:1px}
+  .pr-optional{display:none}
+  .pr-addons.show-opt .pr-optional{display:grid}
+  </style>
+</head>
+<body data-audience="client" data-brand="acciline">
+
+  <nav class="chapter-nav">
+    <div class="nav-toggle"><span></span><span></span><span></span></div>
+    <div class="nav-header">
+      <div class="nav-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+      <span class="nav-subtitle">Offre Essentiel</span>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Le constat</div>
+      <div class="nav-item active" data-slide="0"><span class="nav-item-number">01</span>Couverture</div>
+      <div class="nav-item" data-slide="1"><span class="nav-item-number">02</span>L'offre</div>
+      <div class="nav-item" data-slide="2"><span class="nav-item-number">03</span>Les limites</div>
+      <div class="nav-item" data-slide="3"><span class="nav-item-number">04</span>Excel</div>
+      <div class="nav-item" data-slide="4"><span class="nav-item-number">05</span>La vision</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">La solution</div>
+      <div class="nav-item" data-slide="5"><span class="nav-item-number">06</span>La suite</div>
+      <div class="nav-item" data-slide="6"><span class="nav-item-number">07</span>Évaluation des risques</div>
+      <div class="nav-item" data-slide="7"><span class="nav-item-number">08</span>Plans d'actions</div>
+      <div class="nav-item" data-slide="8"><span class="nav-item-number">09</span>Vos bénéfices</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Tarif et déploiement</div>
+      <div class="nav-item" data-slide="9"><span class="nav-item-number">10</span>Démo plateforme</div>
+      <div class="nav-item" data-slide="10"><span class="nav-item-number">11</span>Tarif</div>
+      <div class="nav-item" data-slide="11"><span class="nav-item-number">12</span>Simulateur</div>
+      <div class="nav-item" data-slide="12"><span class="nav-item-number">13</span>Parcours</div>
+      <div class="nav-item" data-slide="13"><span class="nav-item-number">14</span>Support</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Preuves</div>
+      <div class="nav-item" data-slide="14"><span class="nav-item-number">15</span>Le mouvement</div>
+      <div class="nav-item" data-slide="15"><span class="nav-item-number">16</span>Témoignages</div>
+      <div class="nav-item" data-slide="16"><span class="nav-item-number">17</span>Vos données</div>
+      <div class="nav-item" data-slide="17"><span class="nav-item-number">18</span>Contact</div>
+    </div>
+  </nav>
+
+  <div class="slide-counter"><span class="current">1</span>/18</div>
+
+  <main class="presentation">
+
+    <!-- 0 COVER -->
+    <section class="slide cover active" data-chapter="cover" data-slide="0">
+      <div class="cover-layout">
+        <div class="cover-left">
+          <div class="cover-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+          <h1 class="cover-title">Offre Essentiel</h1>
+          <p class="cover-subtitle">Évaluez les risques professionnels et pilotez vos plans d'action. Le DUERP et le PAPRIPACT réunis dans une plateforme de santé et sécurité au travail, avec Acciline+.</p>
+        </div>
+        <div class="cover-right">
+          <img class="cover-image" src="https://ayming-france.github.io/assets/imagery/essentiel/cover.jpg" alt="Offre Essentiel, la santé et la sécurité au travail">
+        </div>
+      </div>
+    </section>
+
+    <!-- 1 L'OFFRE -->
+    <section class="slide" data-chapter="offre" data-slide="1">
+      <div class="layout-split">
+        <div class="content-side">
+          <h1 class="slide-title">Qu'est-ce que l'Offre Essentiel d'Acciline+ ?</h1>
+          <p class="content-paragraph">Une offre conçue pour aider les consultants indépendants et les cabinets de conseil en prévention à intégrer <strong>une plateforme de santé et sécurité au travail</strong> dans leurs services.</p>
+          <p class="content-paragraph highlight">L'objectif : produire des DUERP, des PAPRIPACT et des actions préventives plus vite, pour de meilleurs résultats chez vos clients.</p>
+        </div>
+        <div class="visual-side">
+          <div class="image-container"><img src="https://ayming-france.github.io/assets/imagery/essentiel/intro.jpg" alt="Une plateforme de santé et sécurité au travail"></div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+    </section>
+
+    <!-- 2 LES LIMITES -->
+    <section class="slide" data-chapter="limites" data-slide="2">
+      <div class="slide-inner">
+        <h1 class="slide-title">Les limites des méthodes traditionnelles de gestion de la SST</h1>
+        <div class="three-columns">
+          <div class="column-card">
+            <div class="card-image"><img src="https://ayming-france.github.io/assets/imagery/essentiel/limites-fragmentee.png" alt="Une prévention fragmentée"></div>
+            <h3>Une prévention fragmentée</h3>
+            <p>Des restitutions éparses, des échanges dispersés, aucun espace commun. Impossible d'avoir une vision d'ensemble.</p>
+          </div>
+          <div class="column-card">
+            <div class="card-image"><img src="https://ayming-france.github.io/assets/imagery/essentiel/limites-tableurs.png" alt="Le tableur Excel montre ses limites"></div>
+            <h3>Le tableur Excel montre ses limites</h3>
+            <p>Formules qui cassent, références perdues, saisies en double. Il ne tient pas la charge d'un portefeuille qui grandit.</p>
+          </div>
+          <div class="column-card">
+            <div class="card-image"><img src="https://ayming-france.github.io/assets/imagery/essentiel/limites-systemes.png" alt="Un plan d'action jamais piloté">
+              <div class="lim-cost a"><svg viewBox="0 0 24 24" fill="none" stroke="#00456d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6a1 1 0 0 1 1 1v1h1a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h1V4a1 1 0 0 1 1-1Z"/><path d="M9 12h6M9 16h4"/></svg></div>
+              <div class="lim-cost b"><svg viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.7 3A6 6 0 0 1 18 8c0 3 1 5 2 6"/><path d="M6 8a6 6 0 0 0-.3 1.8c0 3-2 4-2 4h13"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="M2 2l20 20"/></svg></div>
+            </div>
+            <h3>Le plan d'action reste lettre morte</h3>
+            <p>Le DUERP est produit, mais le plan d'action n'est ni relancé ni suivi. Le risque identifié reste non traité.</p>
+          </div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+    </section>
+
+    <!-- 3 FRAGMENTATION -->
+    <section class="slide" data-chapter="excel" data-slide="3">
+      <div class="slide-inner">
+        <h1 class="slide-title">Le DUERP sous Excel finit toujours par casser</h1>
+        <div class="xlwrap">
+          <div class="xl">
+            <div class="xl-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="xl-file">DUERP_client_2024.xlsx</span></div>
+            <div class="xl-fbar"><span class="xl-ref">F4</span><span class="xl-fx">fx</span><span class="xl-formula"><span class="ok">=RECHERCHEV(C4;Référentiel!$A:$E;5;FAUX)*D4</span></span></div>
+            <table class="xl-grid">
+              <thead><tr><th class="rownum"></th><th>Unité de travail</th><th>Risque</th><th>Gravité</th><th>Fréquence</th><th>Criticité</th></tr></thead>
+              <tbody>
+                <tr><td class="rownum">1</td><td>Atelier soudure</td><td>Brûlure</td><td>4</td><td>3</td><td class="crit" data-v="12" data-err="#REF!">12</td></tr>
+                <tr><td class="rownum">2</td><td>Quai livraison</td><td>Manutention</td><td>3</td><td>4</td><td class="crit" data-v="12">12</td></tr>
+                <tr><td class="rownum">3</td><td>Bureau</td><td>TMS écran</td><td>2</td><td>3</td><td class="crit" data-v="6" data-err="#N/A">6</td></tr>
+                <tr><td class="rownum">4</td><td>Entrepôt</td><td>Chute de charge</td><td>4</td><td>4</td><td class="crit" data-v="16" data-err="#VALEUR!">16</td></tr>
+                <tr><td class="rownum">5</td><td>Chaufferie</td><td>Incendie</td><td>5</td><td>2</td><td class="crit" data-v="10" data-err="#DIV/0!">10</td></tr>
+                <tr><td class="rownum">6</td><td>Parking</td><td>Circulation</td><td>3</td><td>3</td><td class="crit" data-v="9" data-err="#REF!">9</td></tr>
+              </tbody>
+            </table>
+            <div class="xl-status">Calcul en cours…</div>
+            <div class="xl-cursor"><svg viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L10 20 5 3z"/></svg></div>
+            <div class="xl-dialog">
+              <div class="xl-dlg-head"><svg viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Microsoft Excel</div>
+              <p class="xl-dlg-body">Ce classeur contient des liaisons vers des données externes introuvables.</p>
+              <div class="xl-dlg-btns"><button class="xl-btn primary">Mettre à jour</button><button class="xl-btn">Ne pas mettre à jour</button></div>
+            </div>
+            <div class="xl-save">
+              <div class="xl-dlg-head"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>Enregistrer sous</div>
+              <div class="xl-save-list">
+                <div class="xl-save-f">DUERP_client_v2.xlsx</div>
+                <div class="xl-save-f">DUERP_client_final.xlsx</div>
+                <div class="xl-save-f">DUERP_client_final_v2.xlsx</div>
+                <div class="xl-save-f">DUERP_client_VRAIE_final.xlsx</div>
+                <div class="xl-save-f">DUERP_client_v3_ok_cette_fois.xlsx</div>
+              </div>
+              <div class="xl-save-row"><span class="xl-save-lbl">Nom</span><span class="xl-save-name"><span class="xl-typed"></span><span class="xl-caret"></span></span></div>
+              <div class="xl-dlg-btns"><button class="xl-btn primary">Enregistrer</button><button class="xl-btn">Annuler</button></div>
+            </div>
+            <div class="xl-tip"><b>#N/A</b> Valeur introuvable dans le référentiel</div>
+          </div>
+          <ul class="xlpain">
+            <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><div><h4>Les formules cassent</h4><p>Un fichier renommé, une ligne supprimée, et les formules renvoient #REF! en cascade.</p></div></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></span><div><h4>Aucun référentiel métier</h4><p>Réutiliser, c'est recopier un ancien fichier. Sur un secteur nouveau, on construit la bibliothèque de risques de zéro, sans référentiel aligné INRS.</p></div></li>
+            <li><span class="ic"><svg viewBox="0 0 24 24"><path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg></span><div><h4>Des copies qui se multiplient</h4><p>Un classeur par client et par site, des versions v2, v3, VRAIE_final : personne ne sait laquelle fait foi, quand la loi impose 40 ans d'archives traçables.</p></div></li>
+          </ul>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+    </section>
+
+    <!-- 4 LA VISION -->
+    <section class="slide" data-chapter="vision" data-slide="4">
+      <div class="slide-inner">
+        <h1 class="slide-title">La sécurité devrait toujours rassembler, simplifier et guider</h1>
+        <div class="three-columns">
+          <div class="column-card">
+            <div class="card-image"><img src="https://ayming-france.github.io/assets/imagery/essentiel/valeur-eclairer.png" alt="Connecter vos centres"></div>
+            <h3>Connecter vos centres</h3>
+            <p>Des informations centralisées et partagées par tous les acteurs, pour simplifier les échanges avec vos clients et assurer un suivi clair et continu.</p>
+          </div>
+          <div class="column-card">
+            <div class="card-image"><img src="https://ayming-france.github.io/assets/imagery/essentiel/valeur-centraliser.png" alt="Centraliser vos tâches"></div>
+            <h3>Centraliser vos tâches</h3>
+            <p>Toutes les activités de sécurité regroupées au même endroit pour simplifier l'organisation et assurer la continuité.</p>
+          </div>
+          <div class="column-card">
+            <div class="card-image"><img src="https://ayming-france.github.io/assets/imagery/essentiel/valeur-connecter.png" alt="Éclairer vos décisions"></div>
+            <h3>Éclairer vos décisions</h3>
+            <p>Des données claires et fiables, accessibles sans complexité, pour prioriser et décider avec confiance.</p>
+          </div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+    </section>
+
+    <!-- 5 LA SUITE -->
+    <section class="slide" data-chapter="suite" data-slide="5">
+      <div class="slide-inner">
+        <h1 class="slide-title">Une suite logicielle interconnectée pour une sécurité globale</h1>
+        <div class="suite">
+          <div class="suite-item"><img src="https://ayming-france.github.io/assets/imagery/essentiel/icons/mod-evenements.png" alt=""><div><h4>Gestion des événements</h4><p>Surveillez et gérez incidents, dangers et observations en temps réel, où que vous soyez.</p></div></div>
+          <div class="suite-item keep"><img src="https://ayming-france.github.io/assets/imagery/essentiel/icons/mod-evaluation.png" alt=""><div><h4>Évaluation des risques</h4><p>Identifiez et évaluez les risques de manière proactive pour renforcer la sécurité au travail.</p></div></div>
+          <div class="suite-item keep"><img src="https://ayming-france.github.io/assets/imagery/essentiel/icons/mod-plans.png" alt=""><div><h4>Plans d'actions</h4><p>Planifiez et suivez vos actions préventives et correctives pour une sécurité maîtrisée.</p></div></div>
+          <div class="suite-item"><img src="https://ayming-france.github.io/assets/imagery/essentiel/icons/mod-causes.png" alt=""><div><h4>Arbre des causes</h4><p>Adoptez une méthode claire pour identifier les causes et affiner vos stratégies de sécurité.</p></div></div>
+          <div class="suite-item"><img src="https://ayming-france.github.io/assets/imagery/essentiel/icons/mod-equipements.png" alt=""><div><h4>Gestion des équipements</h4><p>Suivez les équipements de vos clients, veillez à leur conformité et maintenez leur bon fonctionnement.</p></div></div>
+          <div class="suite-item"><img src="https://ayming-france.github.io/assets/imagery/essentiel/icons/mod-formations.png" alt=""><div><h4>Formations et habilitations</h4><p>Vérifiez facilement que vos équipes disposent des formations et habilitations nécessaires.</p></div></div>
+          <div class="suite-item"><img src="https://ayming-france.github.io/assets/imagery/essentiel/icons/mod-veille.png" alt=""><div><h4>Veille et conformité HSE</h4><p>Surveillez et respectez les obligations réglementaires pour une conformité continue.</p></div></div>
+          <div class="suite-item"><img src="https://ayming-france.github.io/assets/imagery/essentiel/icons/mod-audits.png" alt=""><div><h4>Audits et inspections<span class="suite-badge">Nouveau</span></h4><p>Menez vos inspections et facilitez vos audits avec des analyses approfondies.</p></div></div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+    </section>
+
+    <!-- 6 ÉVALUATION DES RISQUES -->
+    <section class="slide" data-chapter="evaluation" data-slide="6">
+      <div class="value-detail-layout">
+        <div class="value-detail-content">
+          <div class="vd-head"><img class="vd-icon" src="https://ayming-france.github.io/assets/imagery/essentiel/icons/mod-evaluation.png" alt=""><h2>Évaluation des risques</h2></div>
+          <ul class="vd">
+            <li><h4>Un référentiel de risques prêt à l'emploi</h4><p>Un répertoire aligné INRS (descriptions, sous-risques, mesures, EPI et EPC), adaptable par site, poste et tâche.</p></li>
+            <li><h4>Une cotation automatique et fiable</h4><p>La criticité se calcule seule à partir de la gravité, la fréquence et la maîtrise. Plus de formule cassée ni de valeur fausse qui passe inaperçue.</p></li>
+            <li><h4>Vos clients associés à l'évaluation</h4><p>Chaque client accède à l'évaluation de son périmètre et y contribue en temps réel, pour plus de visibilité et de réactivité.</p></li>
+            <li><h4>Une traçabilité complète qui tient 40 ans</h4><p>Historique complet, filtres par période et exports, avec un versioning automatique qui horodate chaque modification. De quoi prouver l'état de l'évaluation à toute date.</p></li>
+          </ul>
+        </div>
+        <div class="value-detail-visual">
+          <div class="value-image-container"><img src="https://ayming-france.github.io/assets/imagery/essentiel/evaluation-risques.png" alt="Évaluation des risques"></div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+    </section>
+
+    <!-- 7 PLANS D'ACTIONS -->
+    <section class="slide" data-chapter="plans-actions" data-slide="7">
+      <div class="value-detail-layout">
+        <div class="value-detail-content">
+          <div class="vd-head"><img class="vd-icon" src="https://ayming-france.github.io/assets/imagery/essentiel/icons/mod-plans.png" alt=""><h2>Plans d'actions et PAPRIPACT</h2></div>
+          <ul class="vd">
+            <li><h4>Un plan d'action qui se pilote, pas qui dort</h4><p>Le PAPRIPACT n'est plus un document figé. Chaque action a un responsable, une échéance et un budget, reliée au risque qu'elle traite.</p></li>
+            <li><h4>Des relances et alertes automatiques</h4><p>Par email ou via l'application MyAcci+ à chaque échéance, pour que rien ne reste en attente.</p></li>
+            <li><h4>Un suivi d'avancement en temps réel</h4><p>Les progrès remontent en direct, avec pièces jointes depuis le mobile.</p></li>
+            <li><h4>De la mission ponctuelle à l'accompagnement récurrent</h4><p>Le pilotage de l'action donne un motif de contact toute l'année, garde vos clients engagés et fidélise votre portefeuille.</p></li>
+          </ul>
+        </div>
+        <div class="value-detail-visual">
+          <div class="value-image-container"><img src="https://ayming-france.github.io/assets/imagery/essentiel/plans-actions.png" alt="Plans d'actions"></div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+    </section>
+
+
+    <!-- 9 VOS BÉNÉFICES -->
+    <section class="slide" data-chapter="benefices" data-slide="8">
+      <div class="slide-inner">
+        <h1 class="slide-title">Ce que l'offre Essentiel change pour votre cabinet</h1>
+        <div class="three-columns">
+          <div class="column-card">
+            <div class="card-image"><img src="https://ayming-france.github.io/assets/imagery/essentiel/pourquoi-2.jpg" alt="Produisez plus vite, tout au même endroit"></div>
+            <h3>Produisez plus vite, tout au même endroit</h3>
+            <p>Tout le portefeuille de DUERP sur une seule plateforme : référentiel INRS, criticité automatique, PAPRIPACT et archivage 40 ans.</p>
+          </div>
+          <div class="column-card">
+            <div class="card-image"><img src="https://ayming-france.github.io/assets/imagery/essentiel/pourquoi-1.jpg" alt="Élargissez vos missions au-delà du DUERP"></div>
+            <h3>Élargissez vos missions au-delà du DUERP</h3>
+            <p>Six autres modules QHSE déjà prêts pour lancer de nouvelles prestations récurrentes et vous différencier.</p>
+          </div>
+          <div class="column-card">
+            <div class="card-image"><img src="https://ayming-france.github.io/assets/imagery/essentiel/pourquoi-3.jpg" alt="Obtenez des commissions"></div>
+            <h3>Obtenez des commissions</h3>
+            <p>Recommandez Acciline+ aux clients qui préfèrent gérer eux-mêmes leur DUERP et touchez une commission sur chaque abonnement.</p>
+          </div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+    </section>
+
+    <!-- 10 DEMO PLATEFORME -->
+    <section class="slide" data-chapter="demo" data-slide="9">
+      <div class="slide-inner" style="text-align:center">
+        <h1 class="slide-title">Découvrez la plateforme en conditions réelles</h1>
+        <div class="webframe" style="margin-top:26px">
+          <div class="webframe-bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="webframe-url">moe.accilineplus.com/PlateformeRH24</span></div>
+          <img src="https://ayming-france.github.io/assets/imagery/essentiel/demo-platform.jpg" alt="La plateforme Acciline+">
+        </div>
+        <a href="https://moe.accilineplus.com/PlateformeRH24" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;margin-top:22px;background:linear-gradient(135deg,#0fa7e2,#0ab38c);color:#fff;font-weight:700;font-size:16px;padding:14px 30px;border-radius:9999px;text-decoration:none;box-shadow:0 8px 20px rgba(17,169,230,.28)">Accéder à la démo de la plateforme<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+    </section>
+
+    <!-- 11 SIMULATEUR -->
+    <section class="slide" data-chapter="pricing" data-slide="10">
+      <div class="slide-inner">
+        <h1 class="slide-title">Un pricing <b>simple et évolutif</b></h1>
+        <div class="pr">
+          <div class="pr-main">
+            <div class="pr-main-head"><span class="pr-offer">Offre Essentiel</span><span class="pr-price">25&nbsp;€ <small>/ mois</small></span></div>
+            <div class="pr-modules">
+              <div class="pr-mod-title">Modules inclus</div>
+              <div class="pr-mod">
+                <img class="pr-mod-ic" src="https://ayming-france.github.io/assets/imagery/essentiel/icons/mod-evaluation.png" alt="">
+                <div class="pr-mod-body">
+                  <h4>Module Évaluation des Risques (DUERP)</h4>
+                  <ul class="pr-feats">
+                    <li>Répertoire des risques INRS</li>
+                    <li>1 établissement inclus (SIRET)</li>
+                    <li>Critères d'évaluation personnalisables</li>
+                    <li>Catalogue des mesures préventives</li>
+                    <li>Sauvegarde de l'historique des évaluations</li>
+                    <li>Génération du DUERP en PDF et xlsx</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="pr-mod">
+                <img class="pr-mod-ic" src="https://ayming-france.github.io/assets/imagery/essentiel/icons/mod-plans.png" alt="">
+                <div class="pr-mod-body">
+                  <h4>Module Plans d'Actions (PAPRIPACT)</h4>
+                  <ul class="pr-feats">
+                    <li>Identification des actions à mettre en œuvre</li>
+                    <li>Actions liées à l'évaluation des risques</li>
+                    <li>Planification des actions</li>
+                    <li>Génération du PAPRIPACT</li>
+                    <li>Notifications d'actions par email et appli</li>
+                    <li>Exportations PDF et xlsx</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="pr-apps">
+              <div class="pr-app"><span class="pr-app-ic"><img src="https://ayming-france.github.io/assets/imagery/essentiel/apps/acciline-app.png" alt=""></span><span>Acciline+ <b>APP</b></span></div>
+              <div class="pr-app"><span class="pr-app-ic"><img src="https://ayming-france.github.io/assets/imagery/essentiel/apps/acciline-analytics.png" alt=""></span><span>Acciline+ <b>Analytics</b></span></div>
+              <div class="pr-app"><span class="pr-app-ic sh"><img src="https://ayming-france.github.io/assets/imagery/essentiel/apps/acciline-share.png" alt=""></span><span>Acciline+ <b>Share</b></span></div>
+            </div>
+          </div>
+          <div class="pr-addons-wrap">
+            <span class="pr-addons-label">Options</span>
+            <div class="pr-addons">
+              <div class="pr-addon">
+                <span class="pr-addon-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>
+                <div class="pr-addon-body"><h4>Accès collaboratif pour vos clients</h4><p>Améliorez la collaboration avec vos clients via l'application web ou mobile, avec des interactions en temps réel.</p></div>
+                <div class="pr-addon-price"><span class="pr-free">Offert</span><span class="pr-was">+7&nbsp;€ / mois / utilisateur</span></div>
+              </div>
+              <div class="pr-addon">
+                <span class="pr-addon-ic"><svg viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/><path d="M16 8h2a2 2 0 0 1 2 2v11"/><path d="M2 21h20"/><path d="M7.5 7h2M7.5 11h2M7.5 15h2"/></svg></span>
+                <div class="pr-addon-body"><h4>Établissement supplémentaire&nbsp;(SIRET)</h4><p>Débloquez des établissements supplémentaires pour suivre plusieurs missions en parallèle.</p></div>
+                <div class="pr-addon-price">+5&nbsp;€<span class="pr-unit">/ mois / établissement</span></div>
+              </div>
+              <div class="pr-addon">
+                <span class="pr-addon-ic"><svg viewBox="0 0 24 24"><path d="M14 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="8" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></span>
+                <div class="pr-addon-body"><h4>Accès IPRP partenaire</h4><p>Travaillez à plusieurs IPRP sur une même mission, un appel d'offre par exemple. Collaboration incluse entre abonnés Acciline+.</p></div>
+                <div class="pr-addon-price">+15&nbsp;€<span class="pr-unit">/ mois / utilisateur</span></div>
+              </div>
+              <div class="pr-addon">
+                <span class="pr-addon-ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></svg></span>
+                <div class="pr-addon-body"><h4>Modèle métier DUERP</h4><p>Acquérez un modèle sectoriel prêt à l'emploi dans la bibliothèque Acciline+ pour structurer votre Document Unique et évaluer rapidement les risques. Paiement unique.</p></div>
+                <div class="pr-addon-price">+50&nbsp;€<span class="pr-unit">par modèle</span></div>
+              </div>
+              <div class="pr-addon compact pr-optional">
+                <span class="pr-addon-ic two"><img src="https://ayming-france.github.io/assets/imagery/essentiel/icons/mod-evenements.png" alt=""><img src="https://ayming-france.github.io/assets/imagery/essentiel/icons/mod-causes.png" alt=""></span>
+                <div class="pr-addon-body"><h4>Pack Gestion des Événements</h4></div>
+                <div class="pr-addon-price">+20&nbsp;€<span class="pr-unit">/ mois</span></div>
+              </div>
+              <div class="pr-addon compact pr-optional">
+                <span class="pr-addon-ic"><img src="https://ayming-france.github.io/assets/imagery/essentiel/icons/mod-audits.png" alt=""></span>
+                <div class="pr-addon-body"><h4>Module Audit &amp; Inspections</h4></div>
+                <div class="pr-addon-price">+30&nbsp;€<span class="pr-unit">/ mois</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+    </section>
+
+    <section class="slide" data-chapter="simulateur" data-slide="11">
+      <div class="slide-inner es">
+        <h1 class="slide-title">Un tarif qui suit votre portefeuille</h1>
+        <div class="es-calc">
+          <div class="es-calc-top">
+            <div class="es-seg" role="tablist">
+              <button id="esIprp" class="on" role="tab">Cabinet IPRP</button>
+              <button id="esPme" role="tab" style="display:none">PME multi&#8209;sites</button>
+            </div>
+            <span class="es-hint">Tarifs annuels HT, hors mise en service</span>
+          </div>
+          <div class="es-slider-row">
+            <span class="val"><span id="esN"><span class="z">0</span>1</span> SIRET</span>
+            <input type="range" id="esSlider" min="1" max="50" value="1" aria-label="Nombre de SIRET">
+          </div>
+          <div class="es-calc-grid">
+            <div>
+              <div class="es-chartwrap">
+                <svg id="esChart" viewBox="0 0 600 300" role="img" aria-label="Courbe de prix">
+                  <g id="esGrid"></g>
+                  <path id="esArea" fill="rgba(17,169,230,.10)" stroke="none"></path>
+                  <path id="esLine" fill="none" stroke="url(#esGl)" stroke-width="3"></path>
+                  <line id="esMark" stroke="#11a9e6" stroke-width="1" stroke-dasharray="3 3"></line>
+                  <circle id="esDot" r="5.5" fill="#fff" stroke="#11a9e6" stroke-width="3"></circle>
+                  <g id="esAxis"></g>
+                  <defs><linearGradient id="esGl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0fa7e2"/><stop offset="1" stop-color="#0ab38c"/></linearGradient></defs>
+                </svg>
+              </div>
+              <div class="es-legend">
+                <span class="k"><i style="background:linear-gradient(90deg,#0fa7e2,#0ab38c)"></i>Prix annuel selon le nombre de SIRET</span>
+              </div>
+            </div>
+            <div class="es-col">
+              <div class="es-eqrow">
+                <div class="es-eqc"><div class="k">Module de base</div><div class="v"><span id="esBase">20</span> <small>€ / mois</small></div></div>
+                <div class="es-op">+</div>
+                <div class="es-eqc"><div class="k" id="esVlab">1 SIRET × 5 €</div><div class="v"><span id="esVar">5</span> <small>€ / mois</small></div></div>
+                <div class="es-op">=</div>
+                <div class="es-eqc alt"><div class="k">Mensuel</div><div class="v"><span id="esM">25</span> <small>€ / mois</small></div></div>
+              </div>
+              <div class="es-ro hero es-annual"><div class="k">Soit, par an</div><div class="v"><span id="esY">300</span> <small>€</small></div></div>
+              <p class="es-cnote" id="esNote"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+    </section>
+
+    <!-- 12 PARCOURS -->
+    <section class="slide" data-chapter="parcours" data-slide="12">
+      <div class="slide-inner">
+        <h1 class="slide-title">Votre parcours d'intégration Acciline+ en 6 étapes</h1>
+        <div class="plan">
+          <div class="plan-card">
+            <div class="plan-mock mk-send">
+              <div class="mk-doc"><div class="mk-doc-top"><div class="mk-doc-h">Offre Essentiel</div><span class="mk-badge mk-blue">Envoyé</span></div><div class="mk-opt"><i class="on"></i><span></span></div><div class="mk-opt"><i class="on"></i><span></span></div></div>
+            </div>
+            <div class="plan-num">01</div><div class="plan-t">Contrat et options envoyés</div><div class="plan-d">Vous recevez votre contrat et les options disponibles.</div>
+          </div>
+          <div class="plan-card">
+            <div class="plan-mock">
+              <div class="mk-doc"><div class="mk-doc-h">Contrat</div><div class="mk-line" style="width:78%"></div><div class="mk-line" style="width:58%"></div><div class="mk-sign">José E.</div></div>
+              <div class="mk-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            </div>
+            <div class="plan-num">02</div><div class="plan-t">Contrat signé</div><div class="plan-d">La signature déclenche votre accès à la plateforme.</div>
+          </div>
+          <div class="plan-card">
+            <div class="plan-mock" style="background:#0f2b40;border-color:#0f2b40">
+              <div class="mk-play"><i></i></div>
+              <div class="mk-prog"></div>
+            </div>
+            <div class="plan-num">03</div><div class="plan-t">Tutoriels et guides vidéo</div><div class="plan-d">Vous montez en autonomie avec des vidéos et des guides.</div>
+          </div>
+          <div class="plan-card">
+            <div class="plan-mock mk-callm">
+              <div class="mk-avs">
+                <div class="mk-tile"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4" fill="#e2b48c"/><path d="M4.5 21c.5-4.5 4-6.5 7.5-6.5s7 2 7.5 6.5z" fill="#5b7fa6"/></svg><span>Vous</span></div>
+                <div class="mk-tile"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4" fill="#cd9a6b"/><path d="M4.5 21c.5-4.5 4-6.5 7.5-6.5s7 2 7.5 6.5z" fill="#4bb596"/></svg><span>CSM</span></div>
+              </div>
+              <div class="mk-ctrls">
+                <i><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg></i>
+                <i><svg viewBox="0 0 24 24"><rect x="2" y="6" width="13" height="12" rx="2"/><path d="M15 10l6-3v10l-6-3"/></svg></i>
+                <i class="red"><svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.6A2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.6a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.5-1.1a2 2 0 012.1-.5c.8.3 1.7.5 2.6.6a2 2 0 011.7 2z"/></svg></i>
+              </div>
+            </div>
+            <div class="plan-num">04</div><div class="plan-t">Session d'échange avec votre CSM</div><div class="plan-d">Une session dédiée pour vos questions spécifiques.</div>
+          </div>
+          <div class="plan-card">
+            <div class="plan-mock">
+              <div class="mk-doc-h" style="margin-bottom:9px">DUERP · Cotation</div>
+              <div class="mk-risk"><span class="mk-sev s1"></span><div class="mk-line" style="width:56px;margin:0"></div><span class="mk-cot">3</span></div>
+              <div class="mk-risk"><span class="mk-sev s2"></span><div class="mk-line" style="width:70px;margin:0"></div><span class="mk-cot">6</span></div>
+              <div class="mk-risk"><span class="mk-sev s3"></span><div class="mk-line" style="width:48px;margin:0"></div><span class="mk-cot">9</span></div>
+            </div>
+            <div class="plan-num">05</div><div class="plan-t">Réalisation de vos missions</div><div class="plan-d">Vous produisez DUERP et plans d'action pour vos clients.</div>
+          </div>
+          <div class="plan-card">
+            <div class="plan-mock">
+              <div class="mk-mailc">
+                <div class="mk-mailh"><span class="av">C</span><div class="mk-from"><b>Votre CSM</b><span>conseil@ayming.fr</span></div></div>
+                <div class="mk-subj">Votre suivi personnalisé</div>
+                <div class="mk-line" style="width:88%;margin:0 0 4px"></div>
+                <div class="mk-line" style="width:70%;margin:0"></div>
+              </div>
+            </div>
+            <div class="plan-num">06</div><div class="plan-t">Accompagnement personnalisé</div><div class="plan-d">Un accompagnement continu tout au long de vos missions.</div>
+          </div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+    </section>
+
+    <!-- 13 SUPPORT -->
+    <section class="slide" data-chapter="support" data-slide="13">
+      <div class="layout-split">
+        <div class="content-side">
+          <h1 class="slide-title">Un support complet pour la continuité de vos services</h1>
+          <p class="content-paragraph"><strong>Maintenance corrective et support.</strong> Restauration de la solution en cas d'anomalie, avec des délais de rétablissement adaptés au niveau de criticité et une intervention rapide pour limiter les interruptions.</p>
+          <p class="content-paragraph"><strong>Maintenance évolutive.</strong> Des mises à jour régulières qui ajoutent des améliorations sans perte de fonctionnalités, avec une notification 24 h à l'avance des interruptions prévues, planifiées hors heures de bureau.</p>
+          <p class="content-paragraph"><strong>Centre d'accompagnement technique.</strong> Une équipe qui vous répond par email, du lundi au vendredi, de 9 h à 12 h et de 14 h à 18 h (heure de Paris). Chaque signalement est traité selon son niveau de gravité.</p>
+        </div>
+        <div class="visual-side">
+          <div class="image-container"><img src="https://ayming-france.github.io/assets/imagery/essentiel/support.png" alt="Un accompagnement technique en temps réel"></div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+    </section>
+
+    <!-- 14 LE MOUVEMENT -->
+    <section class="slide" data-chapter="mouvement" data-slide="14">
+      <div class="slide-inner">
+        <h1 class="slide-title">Un mouvement pour des environnements de travail plus sûrs</h1>
+        <div class="mv3">
+          <div class="mv3-card">
+            <h4>Des spécialistes à votre service</h4>
+            <p>Plus de 40 spécialistes en sécurité au travail, une communauté de 62 000 utilisateurs et un accompagnement logiciel dédié pour une aide rapide.</p>
+            <img src="https://ayming-france.github.io/assets/imagery/essentiel/mouvement-social-clean.png" alt="Une communauté engagée">
+          </div>
+          <div class="mv3-stats">
+            <div class="st"><div class="st-n">4,5 M+</div><div class="st-l">employés couverts</div></div>
+            <div class="st"><div class="st-n">300+</div><div class="st-l">clients satisfaits</div></div>
+            <div class="st"><div class="st-n">35+</div><div class="st-l">ans dans la prévention</div></div>
+          </div>
+          <div class="mv3-card">
+            <h4>Des entreprises de tous secteurs</h4>
+            <p>Acciline+ aide les entreprises de toutes tailles et de tous secteurs à renforcer la sécurité et l'efficacité sur leurs lieux de travail.</p>
+            <img class="mv3-logos" src="https://ayming-france.github.io/assets/imagery/essentiel/mouvement-logos-clean.png" alt="SPIE, Veolia, Suez, France Télévisions, Legendre, Eiffage, Onet">
+          </div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+    </section>
+
+    <!-- 15 TÉMOIGNAGES -->
+    <section class="slide" data-chapter="temoignages" data-slide="15">
+      <div class="slide-inner">
+        <h1 class="slide-title">Approuvé par des utilisateurs partout dans le monde</h1>
+        <div class="tg">
+          <div class="tg-card">
+            <img class="tg-logo" src="https://ayming-france.github.io/assets/imagery/essentiel/reviews/software-advice.png" alt="Software Advice">
+            <div class="tg-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="tg-quote">Son tableau de bord permet de tenir à jour des chiffres importants et de les diffuser aux salariés, en toute transparence.</p>
+            <div class="tg-author"><div class="tg-name">Lisa F.</div><div class="tg-role">Chargée de mission santé et sécurité</div><div class="tg-sector">Ingénierie civile, 1 001 à 5 000 employés</div></div>
+          </div>
+          <div class="tg-card">
+            <img class="tg-logo" src="https://ayming-france.github.io/assets/imagery/essentiel/reviews/capterra.png" alt="Capterra">
+            <div class="tg-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="tg-quote">L'utilisation simple d'Acciline+ nous aide à respecter les réglementations. L'analyse de nos données sur les événements nous aide à identifier les causes des accidents et à prendre les bonnes mesures.</p>
+            <div class="tg-author"><div class="tg-name">Cécile D.</div><div class="tg-role">Coordinatrice santé et prévention</div><div class="tg-sector">Ingénierie mécanique, plus de 10 000 employés</div></div>
+          </div>
+          <div class="tg-card">
+            <img class="tg-logo" src="https://ayming-france.github.io/assets/imagery/essentiel/reviews/getapp.png" alt="GetApp">
+            <div class="tg-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="tg-quote">La diversité du produit, les capacités du logiciel, la rapidité d'exécution et le support client.</p>
+            <div class="tg-author"><div class="tg-name">Alloïc F.</div><div class="tg-role">Préventeur HSE</div><div class="tg-sector">Aéronautique et industrie aérospatiale, 201 à 500 employés</div></div>
+          </div>
+        </div>
+        <div class="tg-trust">
+          <span class="tg-trust-lbl">Une note de 4,4 sur 5 sur les plateformes d'avis indépendantes</span>
+          <div class="tg-badges">
+            <img src="https://ayming-france.github.io/assets/imagery/essentiel/reviews/capterra.png" alt="Capterra">
+            <img src="https://ayming-france.github.io/assets/imagery/essentiel/reviews/getapp.png" alt="GetApp">
+            <img src="https://ayming-france.github.io/assets/imagery/essentiel/reviews/software-advice.png" alt="Software Advice">
+          </div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+    </section>
+
+    <!-- 16 VOS DONNÉES -->
+    <section class="slide" data-chapter="donnees" data-slide="16">
+      <div class="slide-inner">
+        <h1 class="slide-title">Sécurité, conformité et fiabilité au coeur de vos données</h1>
+        <div class="three-columns">
+          <div class="column-card">
+            <div class="card-image"><img src="https://ayming-france.github.io/assets/imagery/essentiel/securite-3.jpg" alt="Sécurité et confidentialité"></div>
+            <h3>Sécurité et confidentialité renforcées</h3>
+            <p>Des données protégées par des technologies avancées, chiffrement AES-256 et isolation AWS Nitro System, avec le contrôle total des clés de chiffrement grâce à AWS KMS.</p>
+          </div>
+          <div class="column-card">
+            <div class="card-image"><img src="https://ayming-france.github.io/assets/imagery/essentiel/securite-1.jpg" alt="Conformité aux normes et résilience"></div>
+            <h3>Conformité aux normes et résilience</h3>
+            <p>Le respect des réglementations européennes (RGPD) et la protection contre les demandes de données non conformes (Cloud Act). Les données sont hébergées en Europe.</p>
+          </div>
+          <div class="column-card">
+            <div class="card-image"><img src="https://ayming-france.github.io/assets/imagery/essentiel/securite-2.jpg" alt="Disponibilité et durabilité"></div>
+            <h3>Disponibilité et durabilité renforcées</h3>
+            <p>Une infrastructure robuste avec réplication des données sur plusieurs zones pour la continuité des opérations, et une empreinte carbone réduite grâce à AWS Customer Carbon Footprint.</p>
+          </div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+    </section>
+
+    <!-- 17 CONTACT -->
+    <section class="slide" data-chapter="contact" data-slide="17" style="background: var(--bg-light);">
+      <div class="slide-inner" style="text-align:center">
+        <h1 class="slide-title">Transformez vos processus de sécurité dès aujourd'hui</h1>
+        <div class="ct">
+          <div class="ct-item">
+            <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div>
+            <div><div class="ct-k">Téléphone</div><div class="ct-v">+33 (0)6 45 66 30 40</div></div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
+            <div><div class="ct-k">Email</div><div class="ct-v">jencarnacion@ayming.com</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="company-logo"><img src="https://ayming-france.github.io/assets/logos/ayming-logo.png" alt="Ayming"></div>
+    </section>
+
+  </main>
+
+  <div class="keyboard-hint">
+    <span><span class="key" id="key-prev">&larr;</span><span class="key" id="key-next">&rarr;</span> Naviguer</span>
+    <span><span class="key" id="key-fullscreen">F</span> Plein écran</span>
+  </div>
+
+  <script src="https://ayming-france.github.io/assets/engine/slides.js"></script>
+  <script src="https://ayming-france.github.io/assets/engine/lucide.min.js"></script>
+  <script>lucide.createIcons();</script>
+
+  <script>
+  (function(){
+    "use strict";
+    var BASE=20,NMAX=50,CAP=1500,YMIN=300;
+    function monthly(n){return seg==='pme'?BASE+n*8:BASE+n*5;}
+    function annual(n){return monthly(n)*12;}
+    function our(v){var a=annual(v);return seg==='iprp'?Math.min(a,CAP):a;}
+    function fmt(v){return Math.round(v).toLocaleString('fr-FR');}
+    var seg='iprp',n=1;
+    var $=function(id){return document.getElementById(id);};
+    var slider=$('esSlider'),nEl=$('esN'),roY=$('esY'),roM=$('esM'),roVar=$('esVar'),roVlab=$('esVlab'),roBase=$('esBase'),note=$('esNote');
+    var PADL=48,PADR=18,PADT=16,PADB=32,W=600,H=300;
+    function xOf(v){return PADL+(v-1)/(NMAX-1)*(W-PADL-PADR);}
+    function yOf(v,ym){var t=(Math.max(YMIN,Math.min(v,ym))-YMIN)/(ym-YMIN);return H-PADB-t*(H-PADT-PADB);}
+    function build(){
+      var ym=seg==='iprp'?1600:6000,ol='';
+      for(var v=1;v<=NMAX;v++){var x=xOf(v).toFixed(1);ol+=(v===1?'M':'L')+x+' '+yOf(our(v),ym).toFixed(1)+' ';}
+      $('esLine').setAttribute('d',ol);
+      $('esArea').setAttribute('d','M'+xOf(1).toFixed(1)+' '+(H-PADB)+' '+ol.replace('M','L')+'L'+xOf(NMAX).toFixed(1)+' '+(H-PADB)+' Z');
+      var g='',ax='',steps=seg==='iprp'?[300,600,900,1200,1500]:[300,1500,3000,4500,6000];
+      for(var i=0;i<steps.length;i++){var yy=yOf(steps[i],ym).toFixed(1);
+        g+='<line x1="'+PADL+'" y1="'+yy+'" x2="'+(W-PADR)+'" y2="'+yy+'" stroke="#eef2f6" stroke-width="1"/>';
+        ax+='<text x="'+(PADL-8)+'" y="'+(parseFloat(yy)+4)+'" font-size="10" fill="#9ca3af" text-anchor="end">'+fmt(steps[i])+'</text>';}
+      [1,10,25,40,50].forEach(function(v){ax+='<text x="'+xOf(v).toFixed(1)+'" y="'+(H-PADB+18)+'" font-size="10" fill="#9ca3af" text-anchor="middle">'+v+'</text>';});
+      ax+='<text x="'+((PADL+(W-PADR))/2).toFixed(1)+'" y="'+(H-2)+'" font-size="10" font-weight="700" fill="#9ca3af" text-anchor="middle">NOMBRE DE SIRET</text>';
+      $('esGrid').innerHTML=g;$('esAxis').innerHTML=ax;
+      update();
+    }
+    function update(){
+      var ym=seg==='iprp'?1600:6000,y=our(n),capped=(seg==='iprp'&&annual(n)>CAP);
+      var mon=Math.round(y/12),rate=seg==='pme'?8:5;
+      roY.textContent=fmt(y);roM.textContent=fmt(mon);roVar.textContent=fmt(mon-BASE);
+      roVlab.innerHTML=capped?'SIRET, illimité':(n+' SIRET × '+rate+' €');
+      roBase.textContent=BASE;nEl.innerHTML=(n<10?'<span class="z">0</span>':'')+n;
+      var mx=xOf(n).toFixed(1),my=yOf(y,ym).toFixed(1),m=$('esMark');
+      m.setAttribute('x1',mx);m.setAttribute('x2',mx);m.setAttribute('y1',my);m.setAttribute('y2',H-PADB);
+      var d=$('esDot');d.setAttribute('cx',mx);d.setAttribute('cy',my);
+      note.textContent=seg==='pme'?'Aucun plafond côté PME. Remise 15 % pour engagement annuel, frais de mise en service 300 à 500 € en sus.':'';
+    }
+    slider.addEventListener('input',function(){n=parseInt(this.value,10);update();});
+    function setSeg(s){seg=s;$('esPme').classList.toggle('on',s==='pme');$('esIprp').classList.toggle('on',s==='iprp');build();}
+    $('esPme').addEventListener('click',function(){setSeg('pme');});
+    $('esIprp').addEventListener('click',function(){setSeg('iprp');});
+    document.addEventListener('keydown',function(e){
+      if(e.key!=='s'&&e.key!=='S')return;
+      var t=e.target;if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable))return;
+      $('esPme').style.display='';setSeg('pme');
+    });
+    build();
+  })();
+  </script>
+
+  <script>
+  /* Parcours : révèle les six cartes une par une à l'avance (flèche droite,
+     espace, bouton suivant de la bannière, swipe). Tant qu'une carte reste
+     cachée, l'avance révèle la suivante au lieu de changer de slide ; une fois
+     les six affichées, la même action passe à la slide suivante. Retour arrière
+     et mouvement réduit non modifiés (le mouvement réduit affiche tout via CSS). */
+  (function () {
+    var plan = document.querySelector('.slide[data-chapter="parcours"] .plan');
+    if (!plan) return;
+    var cards = plan.querySelectorAll('.plan-card');
+    if (!cards.length) return;
+    var slide = plan.closest('.slide');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var step = 0;
+    function hideAll() { cards.forEach(function (c) { c.classList.remove('mk-in'); }); }
+    function reveal(i) { if (cards[i]) cards[i].classList.add('mk-in'); }
+    function play() { hideAll(); step = 0; if (reduce) { step = cards.length; } }
+    function stop() { hideAll(); step = 0; }
+    if (typeof window.nextSlide === 'function' && !window.__esPlanPatched) {
+      var origNext = window.nextSlide;
+      window.nextSlide = function () {
+        if (slide.classList.contains('active') && step < cards.length) { reveal(step); step++; return; }
+        origNext();
+      };
+      window.__esPlanPatched = true;
+    }
+    var wasActive = slide.classList.contains('active');
+    if (wasActive) play();
+    new MutationObserver(function () {
+      var active = slide.classList.contains('active');
+      if (active && !wasActive) play();
+      else if (!active && wasActive) stop();
+      wasActive = active;
+    }).observe(slide, { attributes: true, attributeFilter: ['class'] });
+  })();
+  </script>
+
+  <script>
+  /* Slide Excel, animation en boucle : on ouvre le fichier de l'an dernier, Excel
+     avertit de liaisons rompues, on met à jour, et la colonne Criticité se remplit
+     d'erreurs (#REF!, #N/A, #VALEUR!, #DIV/0!) avec une valeur qui reste fausse sans
+     alerte. Mouvement réduit : état cassé figé pour l'export. */
+  (function () {
+    var slide = document.querySelector('.slide[data-chapter="excel"]');
+    if (!slide) return;
+    var xl = slide.querySelector('.xl'); if (!xl) return;
+    var cursor = xl.querySelector('.xl-cursor'), dialog = xl.querySelector('.xl-dialog');
+    var saveDlg = xl.querySelector('.xl-save'), typed = xl.querySelector('.xl-typed');
+    var saveBtn = saveDlg ? saveDlg.querySelector('.xl-btn.primary') : null;
+    var okBtn = xl.querySelector('.xl-dialog .xl-btn.primary'), status = xl.querySelector('.xl-status');
+    var tip = xl.querySelector('.xl-tip'), fbar = xl.querySelector('.xl-formula');
+    var crits = xl.querySelectorAll('.crit');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var OKF = '<span class="ok">=RECHERCHEV(C4;Référentiel!$A:$E;5;FAUX)*D4</span>';
+    var ERF = '<span class="err">=RECHERCHEV(C4;#REF!;5;FAUX)*D4</span>';
+    var FNAME = 'DUERP_client_v3_derniere_version.xlsx';
+    var timers = [];
+    function typeName(i) { if (!typed) return; typed.textContent = FNAME.slice(0, i); if (i < FNAME.length) at(40, function () { typeName(i + 1); }); }
+    function at(ms, fn) { timers.push(setTimeout(fn, ms)); }
+    function clr() { timers.forEach(clearTimeout); timers = []; }
+    function fset(html) { if (fbar) fbar.innerHTML = html; }
+    function reset() {
+      clr();
+      crits.forEach(function (c) { c.textContent = c.dataset.v; c.classList.remove('err'); });
+      fset(OKF);
+      if (dialog) dialog.classList.remove('show');
+      if (okBtn) okBtn.classList.remove('hot');
+      if (status) status.classList.remove('show');
+      if (tip) tip.classList.remove('show');
+      if (saveDlg) saveDlg.classList.remove('show');
+      if (typed) typed.textContent = '';
+      if (saveBtn) saveBtn.classList.remove('hot');
+      if (cursor) { cursor.classList.remove('click'); cursor.style.left = '16px'; cursor.style.top = '122px'; }
+    }
+    function broken() {
+      crits.forEach(function (c) { if (c.dataset.err) { c.textContent = c.dataset.err; c.classList.add('err'); } });
+      fset(ERF);
+      if (tip) tip.classList.add('show');
+    }
+    function bloom() {
+      var last = 0;
+      crits.forEach(function (c, i) {
+        if (!c.dataset.err) return;
+        at(i * 180, function () { c.textContent = c.dataset.err; c.classList.add('err'); });
+        last = i;
+      });
+      at(last * 180 + 220, function () { fset(ERF); if (status) status.classList.remove('show'); if (tip) tip.classList.add('show'); });
+    }
+    function play() {
+      reset();
+      if (reduce) { broken(); return; }
+      at(650, function () { if (dialog) dialog.classList.add('show'); });
+      at(1500, function () { if (cursor) { cursor.style.left = '338px'; cursor.style.top = '182px'; } });
+      at(2150, function () { if (cursor) cursor.classList.add('click'); if (okBtn) okBtn.classList.add('hot'); });
+      at(2320, function () { if (cursor) cursor.classList.remove('click'); if (okBtn) okBtn.classList.remove('hot'); if (dialog) dialog.classList.remove('show'); if (status) status.classList.add('show'); });
+      at(2560, function () { bloom(); });
+      at(4400, function () { if (tip) tip.classList.remove('show'); if (typed) typed.textContent = ''; if (saveDlg) saveDlg.classList.add('show'); });
+      at(4800, function () { typeName(1); });
+      at(6600, function () { if (cursor) { cursor.style.left = '340px'; cursor.style.top = '216px'; } });
+      at(7050, function () { if (cursor) cursor.classList.add('click'); if (saveBtn) saveBtn.classList.add('hot'); });
+      at(7220, function () { if (cursor) cursor.classList.remove('click'); if (saveBtn) saveBtn.classList.remove('hot'); });
+      at(8800, function () { play(); });
+    }
+    function stop() { clr(); reset(); }
+    var wasActive = slide.classList.contains('active');
+    if (wasActive) play();
+    new MutationObserver(function () {
+      var a = slide.classList.contains('active');
+      if (a && !wasActive) play();
+      else if (!a && wasActive) stop();
+      wasActive = a;
+    }).observe(slide, { attributes: true, attributeFilter: ['class'] });
+  })();
+  </script>
+
+  <script>
+  /* Slide suite, focus : à la première avance, tous les modules passent à 25 pour
+     cent sauf Évaluation des risques et Plans d'actions, restés pleins. L'avance
+     suivante passe à la slide suivante. Mouvement réduit : tous restent visibles. */
+  (function () {
+    var suite = document.querySelector('.slide[data-chapter="suite"] .suite');
+    if (!suite) return;
+    var slide = suite.closest('.slide');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var focused = false;
+    function reset() { focused = false; suite.classList.remove('focus'); }
+    if (typeof window.nextSlide === 'function' && !window.__esSuitePatched) {
+      var origNext = window.nextSlide;
+      window.nextSlide = function () {
+        if (!reduce && slide.classList.contains('active') && !focused) { suite.classList.add('focus'); focused = true; return; }
+        origNext();
+      };
+      window.__esSuitePatched = true;
+    }
+    var wasActive = slide.classList.contains('active');
+    new MutationObserver(function () {
+      var a = slide.classList.contains('active');
+      if (a !== wasActive) reset();
+      wasActive = a;
+    }).observe(slide, { attributes: true, attributeFilter: ['class'] });
+  })();
+  </script>
+
+  <script>
+  /* Slide pricing : les deux packs de modules (Gestion des Événements, Audit et
+     Inspections) sont masqués par défaut. La touche E les affiche ou les masque
+     quand la slide pricing est active. L'interception se fait en phase de capture
+     pour passer avant l'éditeur du moteur (lui aussi sur la touche E), qui reste
+     actif sur toutes les autres slides. */
+  (function () {
+    var slide = document.querySelector('.slide[data-chapter="pricing"]');
+    if (!slide) return;
+    var addons = slide.querySelector('.pr-addons');
+    if (!addons) return;
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'e' && e.key !== 'E') return;
+      if (!slide.classList.contains('active')) return;
+      var t = e.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      e.stopImmediatePropagation();
+      e.preventDefault();
+      addons.classList.toggle('show-opt');
+    }, true);
+  })();
+  </script>
+
+  <script>
+  /* Marque du deck : l'attribut data-brand sur le body pilote l'habillage
+     Acciline+. Le moteur (slides.js) a déjà injecté le bandeau de bas de page et
+     la bande de certifications de la couverture quand ce script s'exécute, donc
+     on les retouche ici après coup. Acciline+ est un produit du groupe Ayming :
+     le logo passe en Acciline+, l'attribution Ayming reste dans le texte du
+     bandeau (« propriété exclusive d'Ayming »). */
+  (function () {
+    if (document.body.getAttribute('data-brand') !== 'acciline') return;
+    var logo = 'https://ayming-france.github.io/assets/imagery/essentiel/acciline-logo.png';
+    // Logos : couverture, bandeau moteur, en-tête de navigation et logos HTML masqués.
+    document.querySelectorAll('.cover-logo img, .company-logo img, .banner-logo img, .nav-logo img').forEach(function (img) {
+      img.src = logo; img.alt = 'Acciline+';
+    });
+    // Couverture : le moteur affiche les certifications du groupe Ayming. Ayming
+    // Digital étant une filiale d'Ayming, ces certifications la couvrent, on les
+    // garde. On ajoute le badge HDS (hébergement de données de santé), propre à
+    // Ayming Digital, juste après l'ISO 27001, et on retire l'OPQCM (qualification
+    // du conseil en management, hors périmètre produit) pour garder une seule rangée.
+    var strip = document.querySelector('.slide.cover .cert-strip');
+    if (strip && !strip.querySelector('img[src*="afaq-hds"]')) {
+      var chip = document.createElement('span');
+      chip.className = 'cert-chip';
+      chip.innerHTML = '<img src="https://ayming-france.github.io/assets/imagery/certifications/afaq-hds.png" alt="Certifié HDS, hébergeur de données de santé">';
+      var iso = strip.querySelector('img[src*="afaq-iso-27001"]');
+      if (iso && iso.parentNode) iso.parentNode.insertAdjacentElement('afterend', chip);
+      else strip.appendChild(chip);
+      var opqcm = strip.querySelector('img[src*="opqcm"]');
+      if (opqcm && opqcm.parentNode) opqcm.parentNode.remove();
+    }
+  })();
+  </script>
+
+</body>
+</html>

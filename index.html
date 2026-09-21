@@ -340,7 +340,15 @@
   .pr-free{display:block;color:var(--gradient-green-end);font-size:15px}
   .pr-was{display:block;color:#b0b8c1;font-weight: var(--weight-semibold);font-size:10.5px;text-decoration:line-through;margin-top:1px}
   .pr-optional{display:none}
-  .pr-left{display:flex;flex-direction:column;gap:11px}
+  .pr-extra{display:flex;align-items:center;gap:11px;margin-top:13px;padding-top:12px;border-top:1px dashed #d5dce4}
+  .pr-plus{font-size:20px;font-weight:900;color:var(--blue-primary);line-height:1;width:14px;text-align:center;flex-shrink:0}
+  .pr-extra-ic{width:30px;height:30px;border-radius:8px;background:var(--bg-white);box-shadow:0 1px 4px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .pr-extra-ic svg{width:17px;height:17px;stroke:var(--blue-primary);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .pr-extra-body{flex:1;min-width:0}
+  .pr-extra-body h4{font-size:12.5px;font-weight:var(--weight-black);color:var(--blue-dark);margin:0}
+  .pr-extra-body p{font-size:10.5px;color:var(--text-gray);line-height:1.3;margin:2px 0 0}
+  .pr-extra-price{font-size:14px;font-weight:var(--weight-black);color:var(--blue-primary);text-align:right;white-space:nowrap;line-height:1.15}
+  .pr-extra-price .pr-unit{display:block;font-size:10px;font-weight:var(--weight-semibold);color:#94a3b8}
   .es-tab-pme{display:none}
   .demo-center{text-align:center}
   .mk-line-contrat-1{width:78%}
@@ -632,7 +640,6 @@
       <div class="slide-inner">
         <h1 class="slide-title">Un pricing <b>simple et évolutif</b></h1>
         <div class="pr">
-          <div class="pr-left">
           <div class="pr-main">
             <div class="pr-main-head"><span class="pr-offer">Offre Essentiel</span><span class="pr-price">25&nbsp;€ <small>/ mois</small></span></div>
             <div class="pr-modules">
@@ -671,12 +678,12 @@
               <div class="pr-app"><span class="pr-app-ic"><img src="https://ayming-france.github.io/assets/imagery/essentiel/apps/acciline-analytics.png" alt=""></span><span>Acciline+ <b>Analytics</b></span></div>
               <div class="pr-app"><span class="pr-app-ic sh"><img src="https://ayming-france.github.io/assets/imagery/essentiel/apps/acciline-share.png" alt=""></span><span>Acciline+ <b>Share</b></span></div>
             </div>
-          </div>
-          <div class="pr-addon">
-            <span class="pr-addon-ic"><svg viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/><path d="M22 10v6"/></svg></span>
-            <div class="pr-addon-body"><h4>Formation à la prise en main</h4><p>Une session pour paramétrer votre espace et rendre vos équipes autonomes dès le premier mois.</p></div>
-            <div class="pr-addon-price">200&nbsp;€<span class="pr-unit">achat unique</span></div>
-          </div>
+            <div class="pr-extra">
+              <span class="pr-plus">+</span>
+              <span class="pr-extra-ic"><svg viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/><path d="M22 10v6"/></svg></span>
+              <div class="pr-extra-body"><h4>Formation à la prise en main</h4><p>Une session pour paramétrer votre espace et rendre vos équipes autonomes dès le premier mois.</p></div>
+              <div class="pr-extra-price">200&nbsp;€<span class="pr-unit">achat unique</span></div>
+            </div>
           </div>
           <div class="pr-addons-wrap">
             <span class="pr-addons-label">Options</span>
